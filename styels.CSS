@@ -1,0 +1,82 @@
+// 1. Array of Artworks (12 items)
+const artworks = [
+    { id: 1, title: "Midnight Charcoal", price: "R 1,500", type: "Charcoal Sketch" },
+    { id: 2, title: "Golden Hour Canvas", price: "R 3,200", type: "Oil on Canvas" },
+    { id: 3, title: "Abstract Serenity", price: "R 2,800", type: "Acrylic Painting" },
+    { id: 4, title: "Urban Whispers", price: "R 1,950", type: "Mixed Media" },
+    { id: 5, title: "The Silent Ocean", price: "R 4,500", type: "Watercolor" },
+    { id: 6, title: "Geometric Illusions", price: "R 2,100", type: "Digital Print" },
+    { id: 7, title: "Monochrome Portrait", price: "R 1,800", type: "Pencil Sketch" },
+    { id: 8, title: "Vibrant Chaos", price: "R 3,600", type: "Acrylic Painting" },
+    { id: 9, title: "Nature's Embrace", price: "R 2,400", type: "Oil on Canvas" },
+    { id: 10, title: "Forgotten Alleyway", price: "R 1,750", type: "Pen and Ink" },
+    { id: 11, title: "Ethereal Dreams", price: "R 5,000", type: "Fine Art Sculpture" },
+    { id: 12, title: "Sunset Silhouette", price: "R 2,250", type: "Pastel" }
+];
+
+// 2. DOM Elements
+const navHome = document.getElementById('nav-home');
+const navProducts = document.getElementById('nav-products');
+const exploreBtn = document.getElementById('explore-btn');
+const homeSection = document.getElementById('home-section');
+const productsSection = document.getElementById('products-section');
+const galleryContainer = document.getElementById('gallery-container');
+
+// 3. Function to populate the gallery dynamically
+function loadGallery() {
+    galleryContainer.innerHTML = ''; // Clear container first
+
+    artworks.forEach(art => {
+        // Create card element
+        const card = document.createElement('div');
+        card.className = 'art-card';
+
+        // Add HTML inside the card
+        card.innerHTML = `
+            <div class="art-image">Image Placeholder<br>${art.type}</div>
+            <div class="art-info">
+                <h3 class="art-title">${art.title}</h3>
+                <p class="art-price">${art.price}</p>
+                <button class="buy-btn">Inquire</button>
+            </div>
+        `;
+
+        // Append to container
+        galleryContainer.appendChild(card);
+    });
+}
+
+// 4. Navigation Logic
+function switchSection(sectionToShow) {
+    if (sectionToShow === 'home') {
+        homeSection.style.display = 'flex';
+        productsSection.style.display = 'none';
+        navHome.classList.add('active');
+        navProducts.classList.remove('active');
+    } else if (sectionToShow === 'products') {
+        homeSection.style.display = 'none';
+        productsSection.style.display = 'block';
+        navProducts.classList.add('active');
+        navHome.classList.remove('active');
+    }
+}
+
+// 5. Event Listeners
+navHome.addEventListener('click', (e) => {
+    e.preventDefault();
+    switchSection('home');
+});
+
+navProducts.addEventListener('click', (e) => {
+    e.preventDefault();
+    switchSection('products');
+});
+
+exploreBtn.addEventListener('click', () => {
+    switchSection('products');
+});
+
+// 6. Initialize App
+document.addEventListener('DOMContentLoaded', () => {
+    loadGallery(); // Load the artworks into the DOM
+});
